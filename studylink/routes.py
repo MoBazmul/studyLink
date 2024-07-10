@@ -46,10 +46,8 @@ def home():
   resources_dict = {}
   is_authenticated = False
 
-  user_id = request.cookies.get('user_id')
-  if user_id or current_user.is_authenticated:
-    # Assuming current_user is your user authentication object
-    user_id = user_id or current_user.id
+  if current_user.is_authenticated:
+    user_id = current_user.id
     user_fields = UserFields.query.filter_by(user_id=user_id).all()
 
     for user_field in user_fields:
@@ -112,12 +110,8 @@ def login():
     if user and bcrypt.check_password_hash(user.password, form.password.data):
       login_user(user, remember=form.remember.data)
       next_page = request.args.get('next')
-      response = make_response(redirect(next_page) if next_page else redirect(url_for('home')))
 
-      # Set cookie to expire in 30 days
-      expire_date = datetime.datetime.now() + datetime.timedelta(days=30)
-      response.set_cookie('user_id', user.id, expires=expire_date)
-      return response
+      return redirect(next_page) if next_page else redirect(url_for('home'))
     else:
       flash('Login Unsuccessfull. Please check email and password', 'danger')
   
