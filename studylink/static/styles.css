@@ -1031,6 +1031,13 @@ main {
     width: 700px;
   }
 
+  .change-nav {
+    margin-top: 12rem; 
+    background-color: #240c54ef; 
+    height: 60px; 
+    border-radius: 7px;
+  }
+
   .add-resource {
     margin: 5rem auto;
   }
