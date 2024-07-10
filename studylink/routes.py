@@ -6,10 +6,11 @@ This module defines the routes and views for the StudyLink application
 import os
 import json
 import secrets
+from random import sample
 from studylink import app, db, bcrypt
 from studylink.models import User, Resources, Fields, Courses, UserFields, UserResources, Reviews, Reply
 from studylink.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddResourceForm
-from flask import abort, jsonify, render_template, url_for, flash, redirect, request, session
+from flask import jsonify, render_template, url_for, flash, redirect, request, session
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 from studylink.get_youtube_videos import get_video_details
@@ -53,11 +54,18 @@ def home():
       course_id = user_field.course_id
       course = Courses.query.get(course_id)
       resources = Resources.query.filter_by(course_id=course_id).all()
-      resources_dict[course.course_name] = resources
+      if(len(resources) > 4):
+        resources = sample(resources, 4)
+        resources_dict[course.course_name] = resources
+      else:
+        resources_dict[course.course_name] = resources
     is_authenticated = True
     return render_template("home.html", title="Home", resources_dict=resources_dict, is_authenticated=is_authenticated, current_time=datetime.utcnow())
   
   resources = Resources.query.all()
+  if(len(resources) > 4):
+    resources = sample(resources, 4)
+
   return render_template("home.html", title="Home", resources=resources, is_authenticated=is_authenticated, current_time=datetime.utcnow())
 
 
