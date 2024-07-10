@@ -777,7 +777,7 @@ main {
   }
 }
 
-@media screen and (min-width: 590px) {
+@media screen and (min-width: 600px) {
   .header__head {
     height: 100px;
   }
@@ -830,12 +830,11 @@ main {
   }
 
   .content-box {
-    width: 550px;
+    width: 590px;
   }
 
   .content {
     width: 520px;
-    margin: 0 auto;
   }
   
   .user {
@@ -932,7 +931,7 @@ main {
   }
 }
 
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 760px) {
   .logo img,
   .logo1 img {
     width: 70px;
@@ -1026,8 +1025,7 @@ main {
   }
 
   .content-box {
-    width: 700px;
-    margin: 0 auto;
+    width: 720px;
   }
 
   .content {
@@ -1146,7 +1144,7 @@ main {
   }
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1100px) {
   nav ul li a {
     font-size: 1.2rem;
   }
@@ -1209,7 +1207,7 @@ main {
   }
 
   .content-box {
-    width: 900px;
+    width: 1000px;
   }
 
   .content {
