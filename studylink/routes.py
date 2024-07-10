@@ -41,30 +41,33 @@ initialize_database()
 @app.route("/home")
 def home():
   """
-  Home page view. Displays resources based on the user's selected courses.
+  Home page view. Displays resources based on the user's selected courses or all resources if not logged in.
   """
   resources_dict = {}
   is_authenticated = False
 
-  if current_user.is_authenticated:
-    user_id = current_user.id
+  user_id = request.cookies.get('user_id')
+  if user_id or current_user.is_authenticated:
+    # Assuming current_user is your user authentication object
+    user_id = user_id or current_user.id
     user_fields = UserFields.query.filter_by(user_id=user_id).all()
 
     for user_field in user_fields:
       course_id = user_field.course_id
       course = Courses.query.get(course_id)
       resources = Resources.query.filter_by(course_id=course_id).all()
-      if(len(resources) > 4):
+      if len(resources) > 4:
         resources = sample(resources, 4)
-        resources_dict[course.course_name] = resources
       resources_dict[course.course_name] = resources
+    
     is_authenticated = True
     return render_template("home.html", title="Home", resources_dict=resources_dict, is_authenticated=is_authenticated, current_time=datetime.utcnow())
-  
-  resources = Resources.query.all()
-  if(len(resources) > 4):
-    resources = sample(resources, 4)
 
+  # If not authenticated, show a sample of all resources
+  resources = Resources.query.all()
+  if len(resources) > 4:
+    resources = sample(resources, 4)
+  
   return render_template("home.html", title="Home", resources=resources, is_authenticated=is_authenticated, current_time=datetime.utcnow())
 
 
@@ -98,20 +101,25 @@ def login():
   User login view.
   """
   if current_user.is_authenticated:
-      return redirect(url_for('home'))
+    return redirect(url_for('home'))
   
   form = LoginForm()
   if form.validate_on_submit():
-      user = User.query.filter_by(email=form.email.data).first()
+    user = User.query.filter_by(email=form.email.data).first()
 
-      if user and bcrypt.check_password_hash(user.password, form.password.data):
-          login_user(user, remember=form.remember.data)
-          next_page = request.args.get('next')
-          return redirect(next_page or url_for('home'))
-      else:
-          flash('Login unsuccessful. Please check email and password.', 'danger')
-          
+    if user and bcrypt.check_password_hash(user.password, form.password.data):
+      login_user(user, remember=form.remember.data)
+      next_page = request.args.get('next')
+      
+      # Set a cookie after successful login
+      response = make_response(redirect(next_page or url_for('home')))
+      response.set_cookie('user_id', str(user.id), max_age=30 * 24 * 60 * 60)  # Expires in 30 days
+      return response
+    else:
+      flash('Login unsuccessful. Please check email and password.', 'danger')
+  
   return render_template('login.html', title='Login', form=form)
+
 
 
 @app.route('/fields')
