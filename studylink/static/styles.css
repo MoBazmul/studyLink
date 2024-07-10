@@ -771,6 +771,10 @@ main {
   .content-box {
     width: 350px;
   }
+
+  .content {
+    width: 320px;
+  }
 }
 
 @media screen and (min-width: 590px) {
@@ -830,7 +834,7 @@ main {
   }
 
   .content {
-    width: 500px;
+    width: 520px;
     margin: 0 auto;
   }
   
@@ -1027,7 +1031,7 @@ main {
   }
 
   .content {
-    width: 320px;
+    width: 380px;
   }
   
   .user {
@@ -1209,7 +1213,7 @@ main {
   }
 
   .content {
-    width: 380px;
+    width: 450px;
   };
 
   .contact-icons {
