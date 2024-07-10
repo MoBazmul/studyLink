@@ -10,7 +10,7 @@ from random import sample
 from studylink import app, db, bcrypt
 from studylink.models import User, Resources, Fields, Courses, UserFields, UserResources, Reviews, Reply
 from studylink.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddResourceForm
-from flask import jsonify, render_template, url_for, flash, redirect, request, session
+from flask import jsonify, make_response, render_template, url_for, flash, redirect, request, session
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 from studylink.get_youtube_videos import get_video_details
@@ -41,32 +41,35 @@ initialize_database()
 @app.route("/home")
 def home():
   """
-  Home page view. Displays resources based on the user's selected courses.
+  Home page view. Displays resources based on the user's selected courses or all resources if not logged in.
   """
   resources_dict = {}
   is_authenticated = False
 
-  if current_user.is_authenticated:
-    user_id = current_user.id
+  user_id = request.cookies.get('user_id')
+  if user_id or current_user.is_authenticated:
+    # Assuming current_user is your user authentication object
+    user_id = user_id or current_user.id
     user_fields = UserFields.query.filter_by(user_id=user_id).all()
 
     for user_field in user_fields:
       course_id = user_field.course_id
       course = Courses.query.get(course_id)
       resources = Resources.query.filter_by(course_id=course_id).all()
-      if(len(resources) > 4):
+      if len(resources) > 4:
         resources = sample(resources, 4)
-        resources_dict[course.course_name] = resources
-      else:
-        resources_dict[course.course_name] = resources
+      resources_dict[course.course_name] = resources
+    
     is_authenticated = True
     return render_template("home.html", title="Home", resources_dict=resources_dict, is_authenticated=is_authenticated, current_time=datetime.utcnow())
-  
-  resources = Resources.query.all()
-  if(len(resources) > 4):
-    resources = sample(resources, 4)
 
+  # If not authenticated, show a sample of all resources
+  resources = Resources.query.all()
+  if len(resources) > 4:
+    resources = sample(resources, 4)
+  
   return render_template("home.html", title="Home", resources=resources, is_authenticated=is_authenticated, current_time=datetime.utcnow())
+
 
 
 
@@ -109,7 +112,12 @@ def login():
     if user and bcrypt.check_password_hash(user.password, form.password.data):
       login_user(user, remember=form.remember.data)
       next_page = request.args.get('next')
-      return redirect(next_page) if next_page else redirect(url_for('home'))
+      response = make_response(redirect(next_page) if next_page else redirect(url_for('home')))
+
+      # Set cookie to expire in 30 days
+      expire_date = datetime.datetime.now() + datetime.timedelta(days=30)
+      response.set_cookie('user_id', user.id, expires=expire_date)
+      return response
     else:
       flash('Login Unsuccessfull. Please check email and password', 'danger')
   
