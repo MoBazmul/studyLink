@@ -599,7 +599,6 @@ main {
 .content-box {
   display: var(--FLEX-DISPLAY);
   align-items: var(--ALIGN-ITEMS);
-  justify-content: var(--JUST-CONTENT);
   flex-wrap: wrap;
   gap: 2rem;
 }
