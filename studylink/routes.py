@@ -57,8 +57,7 @@ def home():
       if(len(resources) > 4):
         resources = sample(resources, 4)
         resources_dict[course.course_name] = resources
-      else:
-        resources_dict[course.course_name] = resources
+      resources_dict[course.course_name] = resources
     is_authenticated = True
     return render_template("home.html", title="Home", resources_dict=resources_dict, is_authenticated=is_authenticated, current_time=datetime.utcnow())
   
