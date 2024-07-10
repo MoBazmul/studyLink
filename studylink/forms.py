@@ -20,8 +20,6 @@ def validate_password_strength(form, field):
         raise ValidationError('Password must contain at least one uppercase letter')
     if not re.search(r"[0-9]", password):
         raise ValidationError('Password must contain at least one digit')
-    if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
-        raise ValidationError('Password must contain at least one special character')
 
 class RegistrationForm(FlaskForm):
   """ Form for user registration """
