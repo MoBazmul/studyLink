@@ -597,7 +597,9 @@ main {
 }
 
 .content-box {
-  width: 300px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 2rem;
   margin: .2rem auto;
 }
@@ -824,11 +826,11 @@ main {
   }
 
   .content-box {
-    width: 500px;
+    width: 550px;
   }
 
   .content {
-    width: 450px;
+    width: 500px;
     margin: 0 auto;
   }
   
