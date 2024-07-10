@@ -36,8 +36,8 @@
                   <strong><a href="{{ url_for('view_profile', user_id=review.user.id) }}" class="res-username">{{ review.user.username }}</a></strong> - {{ moment(review.review_date).fromNow() }}</p>
                   <p style="margin-top: -1rem;">{{ review.review }}</p>
               </section>
-              <p style="font-size: 1.2rem; color: rgb(14, 14, 141);" id="replies">replies</p>
           </section>
+          <button style="font-size: 1.2rem; color: rgb(14, 14, 141); margin-top: -1.7rem; margin-left: 3rem; border: none; background: transparent; margin-bottom: 1rem;" id="replies" class="replies">replies</button>
           <section class="reply-section">
             {% for reply in review.replies %}
             <section class="reply" style="margin-left: 2rem;">
@@ -57,6 +57,7 @@
                 <button type="submit"  class="comment-button">Reply</button>
               </form>
           </section>
+          <button style="font-size: 1.2rem; color: rgb(14, 14, 141); margin-top: -.5rem; margin-left: 2rem; border: none; background: transparent; display: none;" id="close-replies" class="close-replies">close</button>
       </section>
       {% endfor %}
     </section>

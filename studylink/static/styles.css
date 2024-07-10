@@ -726,6 +726,10 @@ main {
   outline: none;
 }
 
+.reply-section {
+  display: none;
+}
+
 .hide {
   display: none;
 }

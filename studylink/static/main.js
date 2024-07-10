@@ -6,6 +6,9 @@ const year = document.querySelector('.year')
 const formClass = document.querySelector('.form-class')
 const addBtn = document.querySelector(".fa-plus")
 const deleteBtn = document.getElementById('#deleteBtn')
+const repliesBtn = document.querySelector('.replies')
+const closeReplies = document.querySelector('.close-replies')
+const replySection = document.querySelector(".reply-section")
 const messageContent = document.querySelector('.message-content')
 const display = document.querySelector('.display')
 const more = document.querySelector('.more')
@@ -18,6 +21,20 @@ const homeUrl = "home";
 
 if(year) {
   year.innerText = new Date().getFullYear()
+}
+
+if(repliesBtn) {
+  repliesBtn.addEventListener("click", () => {
+    replySection.style.display = "block"
+    closeReplies.style.display = "block"
+  })
+}
+
+if(closeReplies) {
+  closeReplies.addEventListener("click", () => {
+    replySection.style.display = "none"
+    closeReplies.style.display = "none"
+  })
 }
 
 if(actionBtn) {
