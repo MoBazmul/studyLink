@@ -7,7 +7,7 @@
     {% if user_resources %}
       <section class="content-box">
         {% for course_name, resources in user_resources.items() %}
-          <h2 style="margin-top: -2rem; font-size: 1rem;">{{ course_name }}</h2>
+          <h2 style="margin-top: -2rem; font-size: 1rem; display: block; width: 100%; text-align: center;">{{ course_name }}</h2>
           <section class="content">
             {% for resource in resources %}
               <div class="resource-item" style="margin-bottom: 1.5rem;">
