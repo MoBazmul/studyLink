@@ -10,7 +10,7 @@ from random import sample
 from studylink import app, db, bcrypt
 from studylink.models import User, Resources, Fields, Courses, UserFields, UserResources, Reviews, Reply
 from studylink.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddResourceForm
-from flask import jsonify, render_template, url_for, flash, redirect, request, session
+from flask import jsonify, make_response, render_template, url_for, flash, redirect, request, session
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 from studylink.get_youtube_videos import get_video_details
