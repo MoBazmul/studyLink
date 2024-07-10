@@ -36,6 +36,7 @@
                   <strong><a href="{{ url_for('view_profile', user_id=review.user.id) }}" class="res-username">{{ review.user.username }}</a></strong> - {{ moment(review.review_date).fromNow() }}</p>
                   <p style="margin-top: -1rem;">{{ review.review }}</p>
               </section>
+              <p style="font-size: 1.2rem; color: rgb(14, 14, 141);" id="replies">replies</p>
           </section>
           <section class="reply-section">
             {% for reply in review.replies %}
