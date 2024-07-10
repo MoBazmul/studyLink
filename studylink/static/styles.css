@@ -601,6 +601,7 @@ main {
   align-items: var(--ALIGN-ITEMS);
   flex-wrap: wrap;
   gap: 2rem;
+  margin: 4rem auto;
 }
 
 .content {
