@@ -896,6 +896,11 @@ main {
     border: 2px solid var(--PRI-COLOR);
   }
 
+  .comments-section {
+    width: 570px;
+    margin: 0 auto;
+  }
+
   .account-style {
     color: var(--PRI-COLOR);
   }
@@ -944,6 +949,10 @@ main {
   }
 
   .field-pick {
+    margin-top: 5rem;
+  }
+
+  .comments-section {
     margin-top: 5rem;
   }
 
