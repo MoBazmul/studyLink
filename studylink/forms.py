@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ This module defines various FlaskForm classes for the StudyLink application """
 
-import json
+import re
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
@@ -9,11 +9,25 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, Valid
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from studylink.models import User
 
+def validate_password_strength(form, field):
+    """ Validate the strength of the password """
+    password = field.data
+    if len(password) < 8:
+        raise ValidationError('Password must be at least 8 characters long')
+    if not re.search(r"[a-z]", password):
+        raise ValidationError('Password must contain at least one lowercase letter')
+    if not re.search(r"[A-Z]", password):
+        raise ValidationError('Password must contain at least one uppercase letter')
+    if not re.search(r"[0-9]", password):
+        raise ValidationError('Password must contain at least one digit')
+    if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+        raise ValidationError('Password must contain at least one special character')
+
 class RegistrationForm(FlaskForm):
   """ Form for user registration """
   username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
   email = StringField('Email', validators=[DataRequired(), Email()])
-  password = PasswordField('Password', validators=[DataRequired()])
+  password = PasswordField('Password', validators=[DataRequired(), validate_password_strength])
   confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
   submit = SubmitField('Sign Up')
 
