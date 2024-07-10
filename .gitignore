@@ -1,0 +1,22 @@
+# Virtual Environment
+pyvenv.cfg
+venv/
+
+# Compiled Python files
+__pycache__/
+
+# Environment variables
+.env
+
+# Database
+var/
+
+# Dependencies (if using a virtual environment)
+lib/
+bin/
+
+# Generated or sensitive files
+software_fields_courses.json 
+
+# Log files
+*.log
