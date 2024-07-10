@@ -601,7 +601,7 @@ main {
   align-items: var(--ALIGN-ITEMS);
   justify-content: var(--JUST-CONTENT);
   flex-wrap: wrap;
-  gap: 1;
+  gap: 2rem;
 }
 
 .content {
@@ -1084,7 +1084,8 @@ main {
   }
 
   .content-box {
-    width: 600px;
+    width: 100%;
+    margin: 2rem
   }
 
   .edit {
