@@ -43,6 +43,7 @@ pyasn1==0.6.0
 pyasn1_modules==0.4.0
 pydantic==2.7.4
 pydantic_core==2.18.4
+PyMySQL==1.1.1
 pyparsing==3.1.2
 python-dotenv==1.0.1
 requests==2.32.3
