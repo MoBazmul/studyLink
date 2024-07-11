@@ -75,11 +75,9 @@ def home():
 @app.route('/search', methods=['GET'])
 def search_resources():
   query = request.args.get('query', '')
-  
-  resources = Resources.query.filter(
-      Resources.title.contains(query) | 
-      Resources.description.contains(query)
-  ).all()
+
+  # Performing the query using SQLAlchemy
+  resources = (Resources.title.contains(query), Resources.description.contains(query)).all()
 
   resources_dict = {}
   for resource in resources:
