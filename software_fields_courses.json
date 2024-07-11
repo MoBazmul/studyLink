@@ -3,7 +3,8 @@
     "Programming Languages": [
         "Python Development",
         "Java Programming",
-        "C/C++ Programming",
+        "C Programming",
+        "C++ Programming",
         "JavaScript Development",
         "Swift Programming (iOS Development)",
         "Kotlin Programming (Android Development)",
@@ -134,9 +135,9 @@
     {
         "DevOps and IT Operations": [
             "Infrastructure as Code (Terraform, Ansible)",
-            "Container Orchestration (Docker, Kubernetes)",
-            "Monitoring and Logging (Prometheus, ELK Stack)",
-            "IT Automation"
+            "Container-Orchestration (Docker, Kubernetes)",
+            "Monitoring-and-Logging (Prometheus, ELK Stack)",
+            "IT-Automation"
         ]
     },
     {
