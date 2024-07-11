@@ -3,6 +3,7 @@
 This module defines the routes and views for the StudyLink application
 """
 
+from operator import or_
 import os
 import json
 import secrets
@@ -76,15 +77,15 @@ def home():
 def search_resources():
   query = request.args.get('query', '')
 
-  # Performing the query using SQLAlchemy
-  resources = (Resources.title.contains(query), Resources.description.contains(query)).all()
+  # Perform the query using SQLAlchemy
+  resources = Resources.query.filter(or_(Resources.title.contains(query), Resources.description.contains(query))).all()
 
   resources_dict = {}
   for resource in resources:
-      course_name = resource.course_name
-      if course_name not in resources_dict:
-          resources_dict[course_name] = []
-      resources_dict[course_name].append(resource)
+    course_name = resource.course_name
+    if course_name not in resources_dict:
+        resources_dict[course_name] = []
+    resources_dict[course_name].append(resource)
 
   return render_template('home.html', resources_dict=resources_dict)
 
