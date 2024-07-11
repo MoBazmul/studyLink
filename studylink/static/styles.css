@@ -1173,6 +1173,7 @@ main {
 
   .content {
     width: 650px;
+    margin-bottom: 2rem;
   }
 
   .description {
