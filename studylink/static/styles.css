@@ -1171,9 +1171,12 @@ main {
     height: 60px;
   }
 
+  .content-box {
+    margin: 0 2rem;
+  }
+
   .content {
     width: 650px;
-    margin: 0 2rem;
   }
 
   .description {
