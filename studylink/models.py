@@ -28,11 +28,13 @@ class User(db.Model, UserMixin):
   website = db.Column(db.String(120))
   twitter = db.Column(db.String(100))
   github = db.Column(db.String(100))
+  confirmed = db.Column(db.Boolean, default=False)
+  confirmed_on = db.Column(db.DateTime, nullable=True)
   user_fields = db.relationship('UserFields', backref='user', lazy=True, cascade='all, delete-orphan')
-  user_resources = db.relationship('UserResources', backref='user', lazy=True)
-  reviews = db.relationship('Reviews', backref='user', lazy=True)
-  replies = db.relationship('Reply', backref='user', lazy=True)
-  resources = db.relationship('Resources', back_populates='user')
+  user_resources = db.relationship('UserResources', backref='user', lazy=True, cascade='all, delete-orphan')
+  reviews = db.relationship('Reviews', backref='user', lazy=True, cascade='all, delete-orphan')
+  replies = db.relationship('Reply', backref='user', lazy=True, cascade='all, delete-orphan')
+  resources = db.relationship('Resources', back_populates='user', cascade='all, delete-orphan')
 
   def __repr__(self):
     return f"User('{self.username}', '{self.email}', '{self.image_file}')"
@@ -120,8 +122,8 @@ class Reviews(db.Model):
   """
   __tablename__ = 'reviews'
   id = db.Column(db.Integer, primary_key=True)
-  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-  resource_id = db.Column(db.Integer, db.ForeignKey('resources.id'), nullable=False)
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  resource_id = db.Column(db.Integer, db.ForeignKey('resources.id'))
   review = db.Column(db.Text, nullable=False)
   review_date = db.Column(db.DateTime, default=datetime.utcnow)
   replies = db.relationship('Reply', backref='reviews', lazy=True)
@@ -133,7 +135,7 @@ class Reply(db.Model):
   """
   __tablename__ = 'reply'
   id = db.Column(db.Integer, primary_key=True)
-  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-  review_id = db.Column(db.Integer, db.ForeignKey('reviews.id'), nullable=False)
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  review_id = db.Column(db.Integer, db.ForeignKey('reviews.id'))
   reply = db.Column(db.Text)
   reply_date = db.Column(db.DateTime, default=datetime.utcnow)

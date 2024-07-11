@@ -147,6 +147,10 @@ body {
   align-items: var(--ALIGN-ITEMS);
 }
 
+.alert-success {
+  margin: 0 auto;
+}
+
 .log_sign {
   display: var(--FLEX-DISPLAY);
   justify-content: var(--JUST-CONTENT);
@@ -597,11 +601,13 @@ main {
 }
 
 .content-box {
+  width: 100%;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 2rem;
-  margin: .2rem auto;
+  margin: 1rem auto;
+  padding: 0 2rem;
 }
 
 .content {
@@ -609,6 +615,7 @@ main {
   padding: .3rem;
   min-height: 200px;
   border-radius: 5px;
+  margin: 0 auto;
   margin-bottom: 1.5rem;
   box-shadow: 4px 4px 4px rgb(193, 187, 187);
 }
@@ -640,7 +647,8 @@ main {
   width: 200px;
   font-style: oblique;
   font-size: .9rem;
-  margin-top: -1rem;
+  margin-top: -.8rem;
+  line-height: 1;
 }
 
 .res-username {
@@ -767,17 +775,9 @@ main {
     height: 400px;
     margin-top: -1rem;
   }
-
-  .content-box {
-    width: 350px;
-  }
-
-  .content {
-    width: 320px;
-  }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 590px) {
   .header__head {
     height: 100px;
   }
@@ -828,14 +828,6 @@ main {
   .preview_head {
     font-size: 1.5rem;
   }
-
-  .content-box {
-    width: 590px;
-  }
-
-  .content {
-    width: 520px;
-  }
   
   .user {
     margin-bottom: .7rem;
@@ -855,7 +847,7 @@ main {
   }
   
   .description {
-    width: 400px;
+    width: 300px;
     font-size: 1.2rem;
   }
   
@@ -931,7 +923,7 @@ main {
   }
 }
 
-@media screen and (min-width: 760px) {
+@media screen and (min-width: 720px) {
   .logo img,
   .logo1 img {
     width: 70px;
@@ -953,6 +945,10 @@ main {
     height: 500px;
     padding: 10rem 10rem;
     margin-top: -4.5rem;
+  }
+
+  .confirm-delete {
+    width: 350px;
   }
 
   .message {
@@ -1024,12 +1020,9 @@ main {
     font-size: 1.5rem;
   }
 
-  .content-box {
-    width: 720px;
-  }
-
   .content {
-    width: 380px;
+    width: 48%;
+    margin: 0 auto;
   }
   
   .user {
@@ -1066,7 +1059,6 @@ main {
   }
   
   .description {
-    width: 400px;
     font-size: 1.2rem;
   }
   
@@ -1178,13 +1170,20 @@ main {
     width: 60px;
     height: 60px;
   }
+
+  .content {
+    width: 650px;
+  }
+
+  .description {
+    width: 400px;
+  }
   
   .title {
     font-size: 1.3rem;
   }
   
   .description {
-    width: 400px;
     font-size: 1.2rem;
   }
   
@@ -1206,14 +1205,6 @@ main {
     font-size: 40px;
   }
 
-  .content-box {
-    width: 1000px;
-  }
-
-  .content {
-    width: 450px;
-  };
-
   .contact-icons {
     width: 300px;
   }
@@ -1225,6 +1216,10 @@ main {
   .contact-icons img {
     width: 43px;
     height: 43px;
+  }
+
+  .feature {
+    padding: 1rem;
   }
 }
 

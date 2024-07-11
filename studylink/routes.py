@@ -7,10 +7,11 @@ import os
 import json
 import secrets
 from random import sample
+from flask_mail import Message
 from studylink import app, db, bcrypt
 from studylink.models import User, Resources, Fields, Courses, UserFields, UserResources, Reviews, Reply
 from studylink.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddResourceForm
-from flask import jsonify, make_response, render_template, url_for, flash, redirect, request, session
+from flask import jsonify, make_response, render_template, url_for, flash, redirect, request, session, current_app
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 from studylink.get_youtube_videos import get_video_details
@@ -180,17 +181,17 @@ def logout():
 
 
 def save_picture(form_picture):
-  """
-  Save the uploaded profile picture and return its filename.
-  """
-  random_hex = secrets.token_hex(8)
-  _, f_ext = os.path.splitext(form_picture.filename)
-  picture_fn = random_hex + f_ext
-  picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
+    """
+    Save the uploaded profile picture and return its filename.
+    """
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(current_app.root_path, 'static/images', picture_fn)
 
-  form_picture.save(picture_path)
+    form_picture.save(picture_path)
 
-  return picture_fn
+    return picture_fn
 
 
 @app.template_filter('format_datetime')
@@ -250,20 +251,41 @@ def account():
 @login_required
 def delete_account():
   """
-  View to delete the user's account.
+  View to delete the user's account and all associated data.
   """
   user_id = current_user.id
   user = User.query.get(user_id)
-    
+  
   if user:
+    # Delete all reviews associated with the user
+    reviews = Reviews.query.filter_by(user_id=user_id).all()
+    for review in reviews:
+      db.session.delete(review)
+    
+    # Delete all resources associated with the user
+    resources = Resources.query.filter_by(user_id=user_id).all()
+    for resource in resources:
+      db.session.delete(resource)
+    
+    # Delete all saved resources associated with the user
+    saved_resources = UserResources.query.filter_by(user_id=user_id).all()
+    for saved_resource in saved_resources:
+      db.session.delete(saved_resource)
+    
+    # Commit the session to remove all associated records
+    db.session.commit()
+
+    # Delete the user
     db.session.delete(user)
     db.session.commit()
+    
     logout_user()
-    response = {"success": True, "message": "Account deleted successfully."}
+    response = {"success": True, "message": "Account and all associated data deleted successfully."}
     return jsonify(response), 200
   else:
     response = {"success": False, "message": "User not found."}
     return jsonify(response), 404
+
 
 
 @app.route('/edit', methods=['GET', 'POST'])

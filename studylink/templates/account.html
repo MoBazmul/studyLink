@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
   {% for message in get_flashed_messages() %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
     {{ message }}
+  </div>
   {% endfor %}
 
   <section class="account-content">
@@ -67,7 +69,7 @@
       <p style="color: #30106f;"><strong>Are you sure you want to delete your account?</strong></p>
       <section class="confirm-buttons">
         <button class="edit cancel" style="background-color: transparent; color: #30106f; border: 2px solid #30106f;"><strong>cancel</strong></button>
-        <button class="delete-btn" id="deleteBtn"><strong>delete</strong></button>
+        <button class="delete-btn deleteBtn"><strong>delete</strong></button>
       </section>
     </section>
 

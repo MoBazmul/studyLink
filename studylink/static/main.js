@@ -5,7 +5,7 @@ const editForm = document.querySelector('.edit')
 const year = document.querySelector('.year')
 const formClass = document.querySelector('.form-class')
 const addBtn = document.querySelector(".fa-plus")
-const deleteBtn = document.getElementById('#deleteBtn')
+const deleteBtn = document.querySelector('.deleteBtn')
 const repliesBtn = document.querySelector('.replies')
 const closeReplies = document.querySelector('.close-replies')
 const replySection = document.querySelector(".reply-section")
@@ -166,7 +166,9 @@ if (deleteBtn) {
     .then(response => response.json())
     .then(data => {
       if (data.success) {
-        window.location.href = homeUrl;
+        window.location.href = homeUrl; 
+      } else {
+        console.error('Failed to delete account:', data.message);
       }
     })
     .catch(error => console.error('Error:', error));
