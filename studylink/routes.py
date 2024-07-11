@@ -72,6 +72,25 @@ def home():
   return render_template("home.html", title="Home", resources=resources, is_authenticated=is_authenticated, current_time=datetime.utcnow())
 
 
+@app.route('/search', methods=['GET'])
+def search_resources():
+  query = request.args.get('query', '')
+  
+  resources = Resources.query.filter(
+      Resources.title.contains(query) | 
+      Resources.description.contains(query)
+  ).all()
+
+  resources_dict = {}
+  for resource in resources:
+      course_name = resource.course_name
+      if course_name not in resources_dict:
+          resources_dict[course_name] = []
+      resources_dict[course_name].append(resource)
+
+  return render_template('home.html', resources_dict=resources_dict)
+
+
 
 @app.route("/register", methods=['POST', 'GET'])
 def register():
