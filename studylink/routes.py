@@ -82,7 +82,7 @@ def search_resources():
 
   resources_dict = {}
   for resource in resources:
-    course_name = resource.course_name
+    course_name = Courses.query.get_or_404(resource.course_id).course_name
     if course_name not in resources_dict:
         resources_dict[course_name] = []
     resources_dict[course_name].append(resource)
