@@ -231,6 +231,9 @@ def account():
   elif request.method == 'GET':
     form.username.data = current_user.username
     form.email.data = current_user.email
+    form.website = current_user.website
+    form.twitter = current_user.twitter
+    form.github = current_user.github
 
   user_fields = UserFields.query.filter_by(user_id=user_id).all()
 
