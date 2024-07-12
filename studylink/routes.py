@@ -45,12 +45,10 @@ def home():
   Home page view. Displays resources based on the user's selected courses or all resources if not logged in.
   """
   resources_dict = {}
-  is_authenticated = False
 
-  user_id = request.cookies.get('user_id')
-  if user_id or current_user.is_authenticated:
+  if current_user.is_authenticated:
     # Assuming current_user is your user authentication object
-    user_id = user_id or current_user.id
+    user_id = current_user.id
     user_fields = UserFields.query.filter_by(user_id=user_id).all()
 
     for user_field in user_fields:
@@ -61,13 +59,12 @@ def home():
         resources = sample(resources, 4)
       resources_dict[course.course_name] = resources
     
-    is_authenticated = True
-    return render_template("home.html", title="Home", resources_dict=resources_dict, is_authenticated=is_authenticated, current_time=datetime.utcnow())
+    return render_template("home.html", title="Home", resources_dict=resources_dict)
 
   # If not authenticated, show a sample of all resources
   resources = sample(Resources.query.all(), 4)
   
-  return render_template("home.html", title="Home", resources=resources, is_authenticated=is_authenticated, current_time=datetime.utcnow())
+  return render_template("home.html", title="Home", resources=resources)
 
 
 

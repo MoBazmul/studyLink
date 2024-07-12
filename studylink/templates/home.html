@@ -45,7 +45,7 @@
     {% else %}
       <h2 class="preview_head">Added Resources</h2>
     {% endif %}
-    {% if not is_authenticated %}
+    {% if not current_user.is_authenticated %}
       <section class="content-box">
         {% for resource in resources %}
           <section class="content">
