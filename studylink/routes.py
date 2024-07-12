@@ -427,7 +427,7 @@ def add_resource():
     if video:
       valid_course = False
       for course in courses:
-        if course.course_name.split()[0] in video['title']:
+        if course.course_name.split()[0].lower() in video['title'].lower().split():
           valid_course = True
           break
 
