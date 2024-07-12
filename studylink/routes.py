@@ -65,9 +65,7 @@ def home():
     return render_template("home.html", title="Home", resources_dict=resources_dict, is_authenticated=is_authenticated, current_time=datetime.utcnow())
 
   # If not authenticated, show a sample of all resources
-  resources = Resources.query.all()
-  if len(resources) > 4:
-    resources = sample(resources, 4)
+  resources = sample(Resources.query.all(), 4)
   
   return render_template("home.html", title="Home", resources=resources, is_authenticated=is_authenticated, current_time=datetime.utcnow())
 
