@@ -461,7 +461,8 @@ def add_resource():
 @login_required
 def view_resource_info(resource_id):
   resource = Resources.query.get_or_404(resource_id)
-  return render_template("view_resource.html", title="Resource Information", resource=resource)
+  user = User.query.get_or_404(resource.user_id)
+  return render_template("view_resource.html", title="Resource Information", user=user, resource=resource)
 
 
 @app.route("/profile/<int:user_id>")
