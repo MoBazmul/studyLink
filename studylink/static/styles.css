@@ -1035,7 +1035,7 @@ main {
 
   .form-border,
   .add-resource {
-    width: 700px;
+    width: 600px;
   }
 
   .change-nav {
@@ -1119,7 +1119,7 @@ main {
 
   .features,
   #resources {
-    width: 80%;
+    width: 75%;
   }
 
   .contact-icons {

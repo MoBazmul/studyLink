@@ -457,6 +457,13 @@ def add_resource():
   return render_template("add_resource.html", title="Add Resource", form=form)
 
 
+@app.route("/view_resource_info/<int:resource_id>")
+@login_required
+def view_resource_info(resource_id):
+  resource = Resources.query.get_or_404(resource_id)
+  return render_template("view_resource.html", title="Resource Information", resource=resource)
+
+
 @app.route("/profile/<int:user_id>")
 @login_required
 def view_profile(user_id):

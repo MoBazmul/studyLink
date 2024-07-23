@@ -90,6 +90,7 @@
                 <img src="{{ resource.thumbnail }}" alt="Resource Img" class="image-extend">
                 <p class="title">{{ resource.title }}</p>
                 <p style="margin-left: .5rem;">Save to Watch</p>
+                <p class="save-prompt" style="margin-left: .5rem;"><a style="text-decoration: none;" href="{{ url_for('view_resource_info', resource_id=resource.id) }}">View Resource</a></p>
                 <section class="action-buttons">
                   <i class="fa fa-floppy-o save-resource" aria-hidden="true" style="font-size: 30px;" data-key="{{ resource.user_id }}" data-another-key="{{ resource.id }}"></i>
                   <a href="{{ url_for('resource_comments', resource_id=resource.id) }}"><i class="fa fa-comments-o" aria-hidden="true" style="font-size: 30px;"></i></a>
