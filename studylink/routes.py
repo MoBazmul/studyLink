@@ -61,8 +61,13 @@ def home():
 
   # If not authenticated, show a sample of all resources
   resources = sample(Resources.query.all(), 4)
+
+  if len(resources) < 4:
+      sampled_resources = resources
+  else:
+      sampled_resources = sample(resources, 4)
   
-  return render_template("home.html", title="Home", resources=resources)
+  return render_template("home.html", title="Home", resources=sampled_resources)
 
 
 
