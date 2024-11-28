@@ -60,7 +60,7 @@ def home():
     return render_template("home.html", title="Home", resources_dict=resources_dict)
 
   # If not authenticated, show a sample of all resources
-  resources = sample(Resources.query.all(), 4)
+  resources = Resources.query.all()
 
   if len(resources) < 4:
       sampled_resources = resources
